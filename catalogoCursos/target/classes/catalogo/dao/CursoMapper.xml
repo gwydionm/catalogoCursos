@@ -1,0 +1,16 @@
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="catalogo.dao.CursoMapper">
+	<select id="selectAll" resultType="catalogo.modelo.Curso">
+		select * from cursos
+	</select>
+	
+	<insert id="insert" parameterType="catalogo.modelo.Curso">
+		insert into cursos
+		(id_curso, titulo_curso, nivel_curso, horas_curso, profesor_curso, curso_activo)
+		values
+		(#{id}, #{titulo}, #{nivel}, #{horas}, #{profesor}, #{curso})
+	</insert>
+</mapper>

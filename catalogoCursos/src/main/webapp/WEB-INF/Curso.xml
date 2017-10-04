@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Curso">
+	
+	<resultMap id="result" type="Curso">
+		<result property="id" column="id_curso"/>
+	    <result property="activo" column="curso_activo"/>
+	    <result property="idProfesor" column="id_profesor"/>
+	    <result property="titulo" column="titulo_curso"/>
+	    <result property="horas" column="horas_curso"/>
+	    <result property="nivel" column="nivel_curso"/>
+    </resultMap>
+	
+    <select id="selectAll" resultMap="result">
+    	SELECT * FROM cursos 
+    </select>
+
+    <insert id="insert" parameterType="Curso">
+		INSERT INTO cursos (titulo_curso, nivel_curso, horas_curso, id_profesor, curso_activo) 
+		values (#{titulo}, #{nivel}, #{horas}, #{idProfesor}, #{activo});
+      <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select last_insert_id() as id_curso
+	  </selectKey>
+    </insert>
+
+</mapper>

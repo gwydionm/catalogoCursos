@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Profesor">
+	
+	<resultMap id="result" type="Profesor">
+		<result property="id" column="id_profesor"/>
+	    <result property="nombre" column="nombre_profesor"/>
+    </resultMap>
+	
+    <select id="selectAll" resultMap="result">
+    	SELECT * FROM profesores 
+    </select>
+
+    <insert id="insert" parameterType="Profesor">
+		INSERT INTO profesores (nombre_profesor)
+		values (#{nombre});
+      <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select last_insert_id() as id_profesor
+	  </selectKey>
+    </insert>
+
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view locale="es">
+
+	<h:head>
+		<script>
+			function show(shown, hidden) {
+				document.getElementById(shown).style.display = 'block';
+				document.getElementById(hidden).style.display = 'none';
+				mainController.addCurso(null);
+				return false;
+			}
+		</script>
+	</h:head>
+	<h:body id="body">
+		<div id="inicio">
+			<h:form id="f">
+				<p:dataTable id="tabla" var="curso" value="#{mainController.cursos}"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					style="width:500px;" emptyMessage="No hay cursos guardados."
+					paginatorAlwaysVisible="false">
+	    
+					<f:facet name="header">
+						Catálogo de cursos
+					</f:facet>
+					<p:column sortBy="#{curso.titulo}" headerText="Título">
+						<h:outputText value="#{curso.titulo}" />
+					</p:column>
+					<p:column headerText="Nivel">
+						<h:outputText value="#{curso.nivel}" />
+					</p:column>
+					<p:column headerText="Horas">
+						<h:outputText value="#{curso.horas}" />
+					</p:column>
+				</p:dataTable>
+	
+				<p:spacer width="100" height="20" />
+	
+				<p:button value="Nuevo curso" onclick="return show('nuevo','inicio');"/>
+				
+			</h:form>
+			
+        	<p:messages id="msgs" autoUpdate="true" showDetail="true"/>
+		</div>
+
+		<div id="nuevo" style="display: none">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Activo" />
+					<p:selectBooleanCheckbox value="#{mainController.activo}" />
+	
+					<h:outputLabel value="Profesor" />
+					<p:selectOneMenu id="profesores" value="#{mainController.profesor}"
+						style="width:220px"  required="true"
+		                requiredMessage="Selecciona un profesor.">
+                		<f:selectItem itemLabel="Selecciona un profesor.." itemValue="" noSelectionOption="true" required="true"/>
+						<f:selectItems value="#{mainController.nombresProfesores}" />
+					</p:selectOneMenu>
+	
+					<h:outputLabel value="Título" />
+					<p:inputText id="título" value="#{mainController.titulo}"  required="true"
+						requiredMessage="Introduce un título." style="width:220px">
+					</p:inputText>
+
+					<h:outputLabel value="Nivel" />
+					<p:selectOneMenu id="niveles" value="#{mainController.nivel}"
+						style="width:220px" required="true"
+						requiredMessage="Selecciona un nivel.">
+                		<f:selectItem itemLabel="Selecciona un nivel.." itemValue="" noSelectionOption="true" />
+						<f:selectItems value="#{mainController.niveles}" />
+					</p:selectOneMenu>
+	
+					<h:outputLabel value="Horas" />
+					<p:spinner id="horas" value="#{mainController.horas}" min="0" style="width:220px"/>
+				</h:panelGrid>
+				
+				<p:commandButton 
+					value="Añadir" ajax="false"
+					actionListener="#{mainController.nuevoCurso}"
+					onclick="return show('inicio','nuevo');">
+   					<f:param name="VALIDATE" value="true" />
+				</p:commandButton>
+				<p:commandButton id="cancelar" value="Cancelar" immediate="true"
+					onclick="return show('inicio','nuevo');"
+					actionListener="#{mainController.resetValues}">
+			   		<f:ajax />
+			    </p:commandButton>
+			</h:form>
+		</div>
+
+		<p:dialog header="¡Curso añadido!" widgetVar="dlg" modal="true"
+			height="100">
+			<h:outputText
+				value="El curso se ha incluido correctamente en el catálogo." />
+		</p:dialog>
+
+	</h:body>
+</f:view>
+</html>
