@@ -1,1 +1,9 @@
-lab\view\MainController.class
+catalog/dao/CourseDAO.class
+catalog/dao/TeacherMapper.class
+catalog/view/MainController.class
+catalog/dao/TeacherDAO.class
+catalog/model/Teacher.class
+catalog/model/Level.class
+catalog/dao/CourseMapper.class
+catalog/dao/ConnectionFactory.class
+catalog/model/Course.class

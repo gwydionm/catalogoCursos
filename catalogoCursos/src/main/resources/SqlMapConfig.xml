@@ -6,8 +6,8 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias alias="Curso" type="catalogo.modelo.Curso"/>
-		<typeAlias alias="Profesor" type="catalogo.modelo.Profesor"/>
+		<typeAlias alias="Course" type="catalog.model.Course"/>
+		<typeAlias alias="Teacher" type="catalog.model.Teacher"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -23,8 +23,8 @@
 	</environments>
 	
     <mappers>
-  	   <mapper resource="Curso.xml"/>
-	   <mapper resource="Profesor.xml"/>
+  	   <mapper resource="Course.xml"/>
+	   <mapper resource="Teacher.xml"/>
     </mappers>
 
 </configuration>
