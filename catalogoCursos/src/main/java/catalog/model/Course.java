@@ -6,9 +6,7 @@ public class Course {
 	private String title;
 	private int hours;
 	private String level;
-	private int id;
 	
-	public Course() {}
 	
 	public Course(String title, String level, boolean active, int hours, int teacherID) {
 		this.active = active;
@@ -35,7 +33,10 @@ public class Course {
 	}
 	
 	public int hashCode() {
-		return 0; //write a function to get INT from string
+		int code = 0;
+		for (int i=0; i<title.length(); i++)
+			code+= title.charAt(i)*(10^i);
+		return code;
 	}
 
 	public boolean isActive() {

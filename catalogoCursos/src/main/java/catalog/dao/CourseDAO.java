@@ -15,9 +15,13 @@ public class CourseDAO {
 		sqlSessionFactory = ConnectionFactory.getSqlSessionFactory();
 	}
 	
+	public SqlSession getSession() {
+		return sqlSessionFactory.openSession();
+	}
+	
 	public List<Course> selectActives(){
 
-		SqlSession session = sqlSessionFactory.openSession();
+		SqlSession session = getSession();
 		
 		try {
 			List<Course> list = session.selectList("Course.selectActives");
@@ -29,7 +33,7 @@ public class CourseDAO {
 
 	public void insert(Course curso){
 
-		SqlSession session = sqlSessionFactory.openSession();
+		SqlSession session = getSession();
 		
 		try {
 			session.insert("Course.insert", curso);

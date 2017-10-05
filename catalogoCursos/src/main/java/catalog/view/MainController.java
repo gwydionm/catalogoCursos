@@ -35,12 +35,19 @@ public class MainController implements Serializable {
 	private String level;
 	private int hours;
 
+	public MainController(CourseDAO courseDAO, TeacherDAO teacherDAO) {
+		daoCourses = courseDAO;
+		daoTeachers = teacherDAO;
+		init();
+	}
 
 	public MainController() {
 		daoCourses = new CourseDAO();
-		courses = daoCourses.selectActives();
-		
 		daoTeachers = new TeacherDAO();
+	}
+	
+	private void init() {
+		courses = daoCourses.selectActives();
 		teachers = daoTeachers.selectAll();
 		nameOfTeachers = new ArrayList<String>();
 		for (Teacher p : teachers)
