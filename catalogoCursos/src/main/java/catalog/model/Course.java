@@ -17,6 +17,12 @@ public class Course {
 	}
 	
 	public boolean equals(Object obj) {  
+		if (obj==null)
+			return false;
+		
+		if (this.getClass() != obj.getClass())
+			return false;
+		
 		Course course = (Course) obj;
 		if (this.active != course.isActive())
 			return false;
@@ -26,10 +32,8 @@ public class Course {
 			return false;
 		if (this.hours != course.getHours())
 			return false;
-		if (!this.level.equals(course.getLevel()))
-			return false;
-
-		return true;
+		// Last check
+		return this.level.equals(course.getLevel());
 	}
 	
 	public int hashCode() {

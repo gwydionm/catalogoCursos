@@ -1,5 +1,6 @@
 package catalog.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,9 +8,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import catalog.model.Course;
 
-public class CourseDAO {
+public class CourseDAO implements Serializable {
 	
-	private SqlSessionFactory sqlSessionFactory; 
+	private static final long serialVersionUID = -3232542606308469027L;
+	
+	private transient SqlSessionFactory sqlSessionFactory; 
 	
 	public CourseDAO(){
 		sqlSessionFactory = ConnectionFactory.getSqlSessionFactory();
@@ -24,8 +27,7 @@ public class CourseDAO {
 		SqlSession session = getSession();
 		
 		try {
-			List<Course> list = session.selectList("Course.selectActives");
-			return list;
+			return session.selectList("Course.selectActives");
 		} finally {
 			session.close();
 		}

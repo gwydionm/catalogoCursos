@@ -3,10 +3,10 @@ package catalog.view;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 
 import catalog.dao.CourseDAO;
 import catalog.dao.TeacherDAO;
@@ -18,17 +18,19 @@ import catalog.model.Teacher;
 @SessionScoped
 public class MainController implements Serializable {
 
+	public static final Logger LOGGER = Logger.getLogger( MainController.class.getName() );
+
 	private static final long serialVersionUID = 3973801993975443027L;
-	
+
 	private CourseDAO daoCourses;
 	private TeacherDAO daoTeachers;
 
-	private List<Course> courses;
-	private List<Teacher> teachers;
+	private transient List<Course> courses;
+	private transient List<Teacher> teachers;
 	private List<String> nameOfTeachers;
 
 	private List<String> levels;
-	
+
 	private String teacher;
 	private boolean active;
 	private String title;
@@ -45,38 +47,38 @@ public class MainController implements Serializable {
 		daoCourses = new CourseDAO();
 		daoTeachers = new TeacherDAO();
 	}
-	
+
 	private void init() {
 		courses = daoCourses.selectActives();
 		teachers = daoTeachers.selectAll();
-		nameOfTeachers = new ArrayList<String>();
+		nameOfTeachers = new ArrayList<>();
 		for (Teacher p : teachers)
 			nameOfTeachers.add(p.getName());
-		
-		levels = new ArrayList<String>();
+
+		levels = new ArrayList<>();
 		for (Level l : Level.values())
 			levels.add(l.toString());
-		
+
 		resetValues();
 	}
-	
-	public void newCourse(ActionEvent actionEvent) {
+
+	public void newCourse() {
 		int teacherID = searchTeacher();
 		Course curso = new Course(title, level, active, hours, teacherID);
 		if (active)
 			courses.add(curso);
 		daoCourses.insert(curso);
-		
+
 		resetValues();
 	}
-	
+
 	public int searchTeacher() {
-		for (Teacher t : teachers) 
+		for (Teacher t : teachers)
 			if (t.getName().equals(teacher))
 				return t.getId();
 		return 0;
 	}
-	
+
 	public void resetValues() {
 		this.title="";
 		this.active=false;
@@ -156,6 +158,6 @@ public class MainController implements Serializable {
 	public void setHours(int hours) {
 		this.hours = hours;
 	}
-	
-	
+
+
 }

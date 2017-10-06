@@ -1,1 +1,2 @@
-/Users/Gwydion/eclipse-workspace/catalogoCursos/src/test/java/catalog/test/CursoDAOMyBatisTest.java
+/Users/Gwydion/eclipse-workspace/catalogoCursos/src/test/java/catalog/unitary/UnitTest.java
+/Users/Gwydion/eclipse-workspace/catalogoCursos/src/test/java/catalog/integrity/CursoDAOMyBatisTest.java

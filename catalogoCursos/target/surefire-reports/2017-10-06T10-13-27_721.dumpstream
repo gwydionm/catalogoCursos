@@ -1,0 +1,6 @@
+# Created on 2017-10-06T10:13:27.722
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=512m; support was removed in 8.0
+
+# Created on 2017-10-06T10:13:27.722
+objc[1796]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/bin/java (0x10ad924c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x10ce034e0). One of the two will be used. Which one is undefined.
+

@@ -10,13 +10,17 @@ public class Teacher {
 	}
 	
 	public boolean equals(Object obj) {  
+		if (obj == null)
+			return false;
+		
+		if (this.getClass() != obj.getClass())
+			return false;
+		
 		Teacher teacher = (Teacher) obj;
 		if (this.id != teacher.id)
 			return false;
-		if (!this.name.equals(teacher.getName()))
-			return false;
-
-		return true;
+		// Last check
+		return this.name.equals(teacher.getName());
 	}
 	
 	public int hashCode() {
