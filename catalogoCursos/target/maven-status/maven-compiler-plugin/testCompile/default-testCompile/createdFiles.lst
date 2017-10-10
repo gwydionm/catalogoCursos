@@ -1,2 +1,5 @@
-catalog/integrity/CursoDAOMyBatisTest.class
-catalog/unitary/UnitTest.class
+catalog/integrity/CursoMapperTest.class
+catalog/unitary/TeacherTest.class
+catalog/unitary/CourseTest.class
+catalog/unitary/MainControllerTest.class
+catalog/integrity/CursoDAOIntegTest.class

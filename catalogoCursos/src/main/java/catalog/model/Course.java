@@ -1,14 +1,16 @@
 package catalog.model;
 
 public class Course {
-	private boolean active;
+	private int id;
+	private int active;
 	private int teacherID;
 	private String title;
 	private int hours;
 	private String level;
 	
 	
-	public Course(String title, String level, boolean active, int hours, int teacherID) {
+	public Course(int id, String title, String level, int active, int hours, int teacherID) {
+		this.id = id;
 		this.active = active;
 		this.teacherID = teacherID;
 		this.title = title;
@@ -42,12 +44,20 @@ public class Course {
 			code+= title.charAt(i)*(10^i);
 		return code;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id=id;
+	}
 
-	public boolean isActive() {
+	public int isActive() {
 		return active;
 	}
 
-	public void setActive(boolean activo) {
+	public void setActive(int activo) {
 		this.active = activo;
 	}
 

@@ -33,12 +33,12 @@ public class CourseDAO implements Serializable {
 		}
 	}
 
-	public void insert(Course curso){
+	public void insert(Course course){
 
 		SqlSession session = getSession();
 		
 		try {
-			session.insert("Course.insert", curso);
+			session.insert("Course.insert", course);
 			session.commit();
 		} finally {
 			session.close();

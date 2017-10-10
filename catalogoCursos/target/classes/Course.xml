@@ -6,6 +6,7 @@
 <mapper namespace="Course">
 	
 	<resultMap id="result" type="Course">
+		<result property="id" column="id"/>
 	    <result property="active" column="is_active"/>
 	    <result property="teacherID" column="teacher"/>
 	    <result property="title" column="title"/>

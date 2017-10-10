@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: catalog.unitary.MainControllerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 1.345 s <<< FAILURE! - in catalog.unitary.MainControllerTest
+newCourseTest(catalog.unitary.MainControllerTest)  Time elapsed: 1.333 s  <<< ERROR!
+java.lang.NullPointerException
+	at catalog.unitary.MainControllerTest.newCourseTest(MainControllerTest.java:120)
+
+emptyControllerTest(catalog.unitary.MainControllerTest)  Time elapsed: 0.005 s  <<< FAILURE!
+java.lang.AssertionError: expected null, but was:<[juan, maria, luisa, laura]>
+	at catalog.unitary.MainControllerTest.emptyControllerTest(MainControllerTest.java:68)
+
+normalControllerTest(catalog.unitary.MainControllerTest)  Time elapsed: 0.007 s  <<< ERROR!
+java.lang.NullPointerException
+	at catalog.unitary.MainControllerTest.normalControllerTest(MainControllerTest.java:79)
+

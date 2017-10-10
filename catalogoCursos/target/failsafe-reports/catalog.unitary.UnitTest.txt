@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: catalog.unitary.UnitTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.327 s - in catalog.unitary.UnitTest

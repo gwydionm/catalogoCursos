@@ -22,22 +22,23 @@ public class ConnectionFactory {
 	}
 
 	public static SqlSessionFactory getSqlSessionFactory() {
-		try {
-
-			String resource = "SqlMapConfig.xml";
-			Reader reader = Resources.getResourceAsReader(resource);
-
-			if (sqlSessionFactory == null) {
+		if (sqlSessionFactory == null) {
+			try {
+	
+				String resource = "SqlMapConfig.xml";
+				Reader reader = Resources.getResourceAsReader(resource);
+	
 				sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			}
+	
+			catch (FileNotFoundException fileNotFoundException) {
+				MainController.LOGGER.log(Level.ALL, "context", fileNotFoundException);
+			}
+			catch (IOException iOException) {
+				MainController.LOGGER.log(Level.ALL, "context", iOException);
+			}
 		}
-
-		catch (FileNotFoundException fileNotFoundException) {
-			MainController.LOGGER.log(Level.ALL, "context", fileNotFoundException);
-		}
-		catch (IOException iOException) {
-			MainController.LOGGER.log(Level.ALL, "context", iOException);
-		}
+		
 		return sqlSessionFactory;
 	}
 

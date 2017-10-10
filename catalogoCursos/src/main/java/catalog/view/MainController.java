@@ -14,6 +14,7 @@ import catalog.model.Course;
 import catalog.model.Level;
 import catalog.model.Teacher;
 
+@SuppressWarnings("deprecation")
 @ManagedBean
 @SessionScoped
 public class MainController implements Serializable {
@@ -37,16 +38,18 @@ public class MainController implements Serializable {
 	private String level;
 	private int hours;
 
-	public MainController(CourseDAO courseDAO, TeacherDAO teacherDAO) {
-		daoCourses = courseDAO;
-		daoTeachers = teacherDAO;
-		init();
-	}
 
 	public MainController() {
 		daoCourses = new CourseDAO();
 		daoTeachers = new TeacherDAO();
+		init();
 	}
+	/*
+	public MainController(CourseDAO courseDAO, TeacherDAO teacherDAO) {
+		daoCourses = courseDAO;
+		daoTeachers = teacherDAO;
+		init();
+	}*/
 
 	private void init() {
 		courses = daoCourses.selectActives();
@@ -63,20 +66,17 @@ public class MainController implements Serializable {
 	}
 
 	public void newCourse() {
-		int teacherID = searchTeacher();
-		Course curso = new Course(title, level, active, hours, teacherID);
+		int teacherID=0;
+		for (Teacher t : teachers)
+			if (t.getName().equals(teacher))
+				teacherID = t.getId();
+		
+		Course curso = new Course(1, title, level, (active ? 1 : 0), hours, teacherID);
 		if (active)
 			courses.add(curso);
 		daoCourses.insert(curso);
 
 		resetValues();
-	}
-
-	public int searchTeacher() {
-		for (Teacher t : teachers)
-			if (t.getName().equals(teacher))
-				return t.getId();
-		return 0;
 	}
 
 	public void resetValues() {
@@ -90,7 +90,6 @@ public class MainController implements Serializable {
 	public List<Course> getCourses() {
 		return courses;
 	}
-
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
@@ -98,7 +97,6 @@ public class MainController implements Serializable {
 	public List<Teacher> getTeachers() {
 		return teachers;
 	}
-
 	public void setTeachers(List<Teacher> teachers) {
 		this.teachers = teachers;
 	}
@@ -106,7 +104,6 @@ public class MainController implements Serializable {
 	public List<String> getNameOfTeachers() {
 		return nameOfTeachers;
 	}
-
 	public void setNameOfTeachers(List<String> nameOfTeachers) {
 		this.nameOfTeachers = nameOfTeachers;
 	}
@@ -114,7 +111,6 @@ public class MainController implements Serializable {
 	public List<String> getLevels() {
 		return levels;
 	}
-
 	public void setLevels(List<String> levels) {
 		this.levels = levels;
 	}
@@ -122,7 +118,6 @@ public class MainController implements Serializable {
 	public String getTeacher() {
 		return teacher;
 	}
-
 	public void setTeacher(String teacher) {
 		this.teacher = teacher;
 	}
@@ -130,7 +125,6 @@ public class MainController implements Serializable {
 	public boolean isActive() {
 		return active;
 	}
-
 	public void setActive(boolean active) {
 		this.active = active;
 	}
@@ -138,7 +132,6 @@ public class MainController implements Serializable {
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -146,7 +139,6 @@ public class MainController implements Serializable {
 	public String getLevel() {
 		return level;
 	}
-
 	public void setLevel(String level) {
 		this.level = level;
 	}
@@ -154,7 +146,6 @@ public class MainController implements Serializable {
 	public int getHours() {
 		return hours;
 	}
-
 	public void setHours(int hours) {
 		this.hours = hours;
 	}

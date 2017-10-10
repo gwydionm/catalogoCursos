@@ -2,5 +2,5 @@ projectKey=com.qussay:catalogoCursos
 serverUrl=http://localhost:9000
 serverVersion=6.5.0.27846
 dashboardUrl=http://localhost:9000/dashboard/index/com.qussay:catalogoCursos
-ceTaskId=AV7wv7BMmJXdMQqMDrFb
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AV7wv7BMmJXdMQqMDrFb
+ceTaskId=AV7y5vSiXSil6wVgaznY
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV7y5vSiXSil6wVgaznY
