@@ -8,10 +8,14 @@
 	</select>
 	
 	<insert id="insert" parameterType="catalog.model.Course">
-		insert into courses 	(title, lvl, hours, teacher, is_active)
-		values (#{title}, #{level}, #{hours}, #{teacherID}, #{active})
+		insert into courses 	(title, lvl, hours, teacher, is_active, file_name)
+		values (#{title}, #{level}, #{hours}, #{teacherID}, #{active}, #{file})
       <selectKey keyProperty="id" resultType="int" order="AFTER">
 		select last_insert_id() as id
 	  </selectKey>
 	</insert>
+	
+	<delete id="deleteID" parameterType="int">
+		delete from courses where id=#{id}
+	</delete>
 </mapper>

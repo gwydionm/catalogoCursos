@@ -7,15 +7,19 @@ public class Course {
 	private String title;
 	private int hours;
 	private String level;
+	private String file;
+	private boolean hasFile;
 	
 	
-	public Course(int id, String title, String level, int active, int hours, int teacherID) {
+	public Course(int id, String title, String level, int active, int hours, int teacherID, String file) {
 		this.id = id;
 		this.active = active;
 		this.teacherID = teacherID;
 		this.title = title;
 		this.hours = hours;
 		this.level = level;
+		this.file = file;
+		this.hasFile = !file.equals("");
 	}
 	
 	public boolean equals(Object obj) {  
@@ -26,18 +30,32 @@ public class Course {
 			return false;
 		
 		Course course = (Course) obj;
-		if (this.active != course.isActive())
+		if (active != course.isActive())
 			return false;
-		if (this.teacherID != course.getTeacherID())
+		if (teacherID != course.getTeacherID())
 				return false;
-		if (!this.title.equals(course.getTitle()))
+		if (!title.equals(course.getTitle()))
 			return false;
-		if (this.hours != course.getHours())
+		if (hours != course.getHours())
+			return false;
+		if (file != course.getFile())
 			return false;
 		// Last check
 		return this.level.equals(course.getLevel());
 	}
 	
+	public boolean getHasFile() {
+		return hasFile;
+	}
+	
+	public void setFile(String file) {
+		this.file=file;
+	}
+	
+	public String getFile() {
+		return file;
+	}
+
 	public int hashCode() {
 		int code = 0;
 		for (int i=0; i<title.length(); i++)

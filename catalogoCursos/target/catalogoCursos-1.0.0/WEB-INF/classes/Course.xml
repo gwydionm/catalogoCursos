@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Course">
+	
+	<resultMap id="result" type="Course">
+	    <result property="active" column="is_active"/>
+	    <result property="teacherID" column="teacher"/>
+	    <result property="title" column="title"/>
+	    <result property="hours" column="hours"/>
+	    <result property="level" column="lvl"/>
+	    <result property="file" column="file_name"/>
+    </resultMap>
+	
+    <select id="selectActives" resultMap="result">
+		select * from courses where is_active=true
+    </select>
+
+    <insert id="insert" parameterType="Course">
+		insert into courses 	(title, lvl, hours, teacher, is_active, file_name)
+		values (#{title}, #{level}, #{hours}, #{teacherID}, #{active}, #{file})
+      <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select last_insert_id() as id
+	  </selectKey>
+    </insert>
+    
+	<delete id="deleteID" parameterType="int">
+		delete from courses where id=#{id}
+	</delete>
+
+</mapper>

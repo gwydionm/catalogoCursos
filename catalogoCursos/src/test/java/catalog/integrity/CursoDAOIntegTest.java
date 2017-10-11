@@ -41,15 +41,19 @@ public class CursoDAOIntegTest {
 	@Test
 	public void querys() {
 		List<Course> list = dao.selectActives();
-		Course c = new Course(list.size(), "title", Level.ADVANCED.toString(), 1, 25, list.get(0).getTeacherID());
+		Course c = new Course(list.size(), "title", Level.ADVANCED.toString(), 1, 25, list.get(0).getTeacherID(), "");
 		dao.insert(c);
 		List<Course> list2 = dao.selectActives();
 		
 		assertTrue(list.size()+1==list2.size());
+		dao.deleteID(c.getId());
+		assertTrue(dao.selectActives().size()==list.size());
 		
-		Course c2 = new Course(list2.size(), "title2", Level.ADVANCED.toString(), 0, 25, list.get(0).getTeacherID());
+		Course c2 = new Course(list2.size(), "title2", Level.ADVANCED.toString(), 0, 25, list.get(0).getTeacherID(), "");
 		dao.insert(c2);
 		assertFalse(dao.selectActives().size() == list2.size()+1);
+		dao.deleteID(c2.getId());
+		assertTrue(dao.selectActives().size()==list.size());
 	}
 
 }

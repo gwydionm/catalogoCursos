@@ -1,5 +1,11 @@
 package catalog.view;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +13,9 @@ import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import catalog.dao.CourseDAO;
 import catalog.dao.TeacherDAO;
@@ -18,6 +27,8 @@ import catalog.model.Teacher;
 @ManagedBean
 @SessionScoped
 public class MainController implements Serializable {
+	
+	private static final String FILES_PATH = "/Users/Gwydion/eclipse-workspace/catalogoCursos/StoredFiles/";
 
 	public static final Logger LOGGER = Logger.getLogger( MainController.class.getName() );
 
@@ -37,19 +48,20 @@ public class MainController implements Serializable {
 	private String title;
 	private String level;
 	private int hours;
+	private UploadedFile file;
 
 
-	public MainController() {
+	public MainController() {		
 		daoCourses = new CourseDAO();
 		daoTeachers = new TeacherDAO();
 		init();
 	}
-	/*
+	
 	public MainController(CourseDAO courseDAO, TeacherDAO teacherDAO) {
 		daoCourses = courseDAO;
 		daoTeachers = teacherDAO;
 		init();
-	}*/
+	}
 
 	private void init() {
 		courses = daoCourses.selectActives();
@@ -64,14 +76,62 @@ public class MainController implements Serializable {
 
 		resetValues();
 	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		file = event.getFile();
+	}
+	
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+	
+	public UploadedFile getFile() {
+		return file;
+	}
+	
+	public void showFile(String file) {
+		try {
+			Desktop.getDesktop().open(new File(FILES_PATH+file));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void newCourse() {
 		int teacherID=0;
-		for (Teacher t : teachers)
-			if (t.getName().equals(teacher))
+		for (Teacher t : teachers) 
+			if (t.getName().equals(teacher)) {
 				teacherID = t.getId();
+				break;
+			}
 		
-		Course curso = new Course(1, title, level, (active ? 1 : 0), hours, teacherID);
+		// Copy file
+		if (file!=null && !file.getFileName().equals("")) {
+			InputStream in=null; OutputStream out=null;
+			try {
+				in = file.getInputstream();
+				out = new FileOutputStream(new File(FILES_PATH+file.getFileName()));
+				int read = 0;
+				byte[] bytes = new byte[1024];
+
+				while ((read = in.read(bytes)) != -1) {
+					out.write(bytes, 0, read);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (in!=null)
+						in.close();  
+					if (out!=null)
+						out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		Course curso = new Course(1, title, level, (active ? 1 : 0), hours, teacherID, (file==null ? "" : file.getFileName()));
 		if (active)
 			courses.add(curso);
 		daoCourses.insert(curso);
@@ -85,6 +145,7 @@ public class MainController implements Serializable {
 		this.hours = 0;
 		this.level = "";
 		this.teacher = "";
+		this.file=null;
 	}
 
 	public List<Course> getCourses() {

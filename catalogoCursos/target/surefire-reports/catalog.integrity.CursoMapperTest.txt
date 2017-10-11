@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: catalog.integrity.CursoMapperTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.826 s <<< FAILURE! - in catalog.integrity.CursoMapperTest
-testCurso(catalog.integrity.CursoMapperTest)  Time elapsed: 0.035 s  <<< ERROR!
-org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): catalog.dao.CourseMapper.selectActives
-	at catalog.integrity.CursoMapperTest.testCurso(CursoMapperTest.java:26)
-

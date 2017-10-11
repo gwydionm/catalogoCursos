@@ -1,4 +1,4 @@
-catalog/integrity/CursoMapperTest.class
+catalog/integrity/TeacherDAOIntegTest.class
 catalog/unitary/TeacherTest.class
 catalog/unitary/CourseTest.class
 catalog/unitary/MainControllerTest.class

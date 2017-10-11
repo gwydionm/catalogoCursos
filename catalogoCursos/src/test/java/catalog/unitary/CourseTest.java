@@ -16,8 +16,8 @@ public class CourseTest {
 		int hours = 25;
 		String level = "bbb";
 		
-	    	Course c = new Course(0, title, level, 1, hours, teacherID);
-	    	Course c2 = new Course(0, title, level, 1, hours, teacherID);
+	    	Course c = new Course(0, title, level, 1, hours, teacherID, "");
+	    	Course c2 = new Course(0, title, level, 1, hours, teacherID, "");
 	    	
 	    	assertFalse(c.equals(null));
 	    	assertFalse(c.equals(1));

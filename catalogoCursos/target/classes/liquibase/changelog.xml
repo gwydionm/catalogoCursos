@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create" author="gwydion">
+
+       <createTable schemaName="testingDB" tableName="teachers">
+           <column name="id" type="int" autoIncrement="true" startWith="1">
+               <constraints primaryKey="true" nullable="false"/>
+           </column>
+           <column name="t_name" type="varchar(50)">
+               <constraints nullable="false"/>
+           </column>
+       </createTable>
+
+       <createTable schemaName="testingDB" tableName="courses">
+           <column name="id" type="int" autoIncrement="true" startWith="1">
+               <constraints primaryKey="true" nullable="false"/>
+           </column>
+           <column name="title" type="varchar(50)">
+               <constraints nullable="false"/>
+           </column>
+           <column name="lvl" type="varchar(50)">
+               <constraints nullable="false"/>
+           </column>
+           <column name="hours" type="int">
+               <constraints nullable="false"/>
+           </column>
+           <column name="teacher" type="int">
+               <constraints nullable="false" foreignKeyName="fk_teachers" references="teachers(id)"/>
+           </column>
+           <column name="is_active" type="tinyint"/>
+           <column name="file_name" type="varchar(255)"/>
+       </createTable>
+   </changeSet>
+
+   <changeSet id="initial-inserts" author="gwydion">
+     <insert schemaName="testingDB" tableName="teachers" dbms="mysql">
+       <column name="t_name" value="Juan Martínez"/>
+     </insert>
+    <insert schemaName="testingDB" tableName="teachers" dbms="mysql">
+      <column name="t_name" value="María Jimeno"/>
+    </insert>
+    <insert schemaName="testingDB" tableName="teachers" dbms="mysql">
+      <column name="t_name" value="Luis Díaz"/>
+    </insert>
+    <insert schemaName="testingDB" tableName="teachers" dbms="mysql">
+      <column name="t_name" value="Laura López"/>
+    </insert>
+
+    <insert schemaName="testingDB" tableName="courses" dbms="mysql">
+      <column name="title" value="Course 1"/>
+      <column name="lvl" value="Basic"/>
+      <column name="hours" value="20"/>
+      <column name="teacher" value="2"/>
+      <column name="is_active" value="1"/>
+      <column name="file_name" value=""/>
+    </insert>
+
+    <insert schemaName="testingDB" tableName="courses" dbms="mysql">
+      <column name="title" value="Course 2"/>
+      <column name="lvl" value="Advanced"/>
+      <column name="hours" value="30"/>
+      <column name="teacher" value="4"/>
+      <column name="is_active" value="1"/>
+      <column name="file_name" value=""/>
+    </insert>
+
+    <insert schemaName="testingDB" tableName="courses" dbms="mysql">
+      <column name="title" value="Course 3"/>
+      <column name="lvl" value="Intermediate"/>
+      <column name="hours" value="40"/>
+      <column name="teacher" value="2"/>
+      <column name="is_active" value="0"/>
+      <column name="file_name" value=""/>
+    </insert>
+
+    <insert schemaName="testingDB" tableName="courses" dbms="mysql">
+      <column name="title" value="Course 4"/>
+      <column name="lvl" value="Basic"/>
+      <column name="hours" value="230"/>
+      <column name="teacher" value="1"/>
+      <column name="is_active" value="0"/>
+      <column name="file_name" value=""/>
+    </insert>
+
+    <insert schemaName="testingDB" tableName="courses" dbms="mysql">
+      <column name="title" value="Course 5"/>
+      <column name="lvl" value="Intermediate"/>
+      <column name="hours" value="20"/>
+      <column name="teacher" value="3"/>
+      <column name="is_active" value="1"/>
+      <column name="file_name" value=""/>
+    </insert>
+   </changeSet>
+
+</databaseChangeLog>

@@ -10,6 +10,34 @@
 	<build>
 
 		<plugins>
+
+			<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.7.RELEASE</version>
+            </plugin>
+
+			<plugin>  
+			    <groupId>org.liquibase</groupId>  
+			    <artifactId>liquibase-maven-plugin</artifactId>  
+			    <version>3.5.3</version>  
+		        <configuration>  
+		          <changeLogFile>src/main/resources/liquibase/changelog.xml</changeLogFile>  
+		          <driver>com.mysql.jdbc.Driver</driver>  
+		          <url>jdbc:mysql://localhost:3306/testingDB</url>  
+		          <username>root</username>  
+		          <password>135790</password>  
+		        </configuration>  
+			    <executions>  
+			      <execution>  
+			        <phase>generate-resources</phase>  
+			        <goals>  
+			          <goal>update</goal>  
+			        </goals>  
+			      </execution>  
+			    </executions>  
+			  </plugin>
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -88,7 +116,8 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>		
+
 
 		</plugins>
 	</build>
@@ -103,6 +132,14 @@
 	</repositories>
 
 	<dependencies>
+	
+		<!-- LiquiBase -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.5.3</version>
+		</dependency>
+
 		<!-- JSF 2 -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -155,13 +192,20 @@
 			<version>1.3.1</version>
 		</dependency>
 		
-		<!-- Spring -->
+		<!-- Spring Boot -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.5.7.RELEASE</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>1.5.7.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>

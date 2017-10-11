@@ -10,4 +10,6 @@ public interface CourseMapper {
 	
 	void insert(Course curso);
 	
+	boolean deleteID(int id);
+	
 }

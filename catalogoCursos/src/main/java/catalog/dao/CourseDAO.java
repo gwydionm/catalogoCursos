@@ -44,4 +44,16 @@ public class CourseDAO implements Serializable {
 			session.close();
 		}
 	}
+	
+	public boolean deleteID(int id) {
+
+		SqlSession session = getSession();
+		
+		try {
+			return session.delete("Course.deleteID", id)==1;
+		} finally {
+			session.commit();
+			session.close();
+		}
+	}
 }

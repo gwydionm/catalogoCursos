@@ -24,7 +24,7 @@ import catalog.view.MainController;
 
 public class MainControllerTest {
 
-	private MainController empty, controller;
+	private MainController controller;
 	private CourseDAO daoCourseMock;
 	private TeacherDAO daoTeacherMock;
 	
@@ -37,9 +37,9 @@ public class MainControllerTest {
 	@Before
 	public void initTest() {
 		courses =  new ArrayList<Course>();
-		courses.add(new Course(1, "a", "Basic", 1, 25, 1));
-		courses.add(new Course(2, "b", "Basic", 1, 25, 1));
-		courses.add(new Course(3, "c", "Basic", 1, 25, 1));
+		courses.add(new Course(1, "a", "Basic", 1, 25, 1, ""));
+		courses.add(new Course(2, "b", "Basic", 1, 25, 1, ""));
+		courses.add(new Course(3, "c", "Basic", 1, 25, 1, ""));
 		
 		teachers = new ArrayList<Teacher>();
 		teachers.add(new Teacher(1,"juan"));
@@ -52,30 +52,17 @@ public class MainControllerTest {
 		levels = new ArrayList<String>();
 		for (Level l : Level.values())
 			levels.add(l.toString());
-		
-	    empty = new MainController();
 	    
 	    	daoCourseMock = mock(CourseDAO.class); 
 	    	when(daoCourseMock.selectActives()).thenReturn(courses);
 	    	daoTeacherMock = mock(TeacherDAO.class);
 	    	when(daoTeacherMock.selectAll()).thenReturn(teachers);
 	
-	    //	controller = new MainController(daoCourseMock, daoTeacherMock);
-	}
-	
-	@Test
-	public void emptyControllerTest() {
-	    assertNull(empty.getNameOfTeachers());
-	    empty.setNameOfTeachers(names);
-	
-	    gotten = empty.getNameOfTeachers();
-	    assertTrue(names.size()==gotten.size());
-	    for (int i=0; i<names.size(); i++)
-	    		assertTrue(names.get(i).equals(gotten.get(i)));
+	    controller = new MainController(daoCourseMock, daoTeacherMock);
 	}
 	
     @Test
-    public void normalControllerTest()  {
+    public void controllerTest()  {
         assertFalse(controller.isActive());
         controller.setActive(true);
         assertTrue(controller.isActive());
@@ -112,11 +99,15 @@ public class MainControllerTest {
         for (int i=0; i<levels.size(); i++)
         		assertTrue(levels.get(i).equals(gotten.get(i)));
         
-        
+	    gotten = controller.getNameOfTeachers();
+	    assertTrue(names.size()==gotten.size());
+	    for (int i=0; i<names.size(); i++)
+	    		assertTrue(names.get(i).equals(gotten.get(i)));
     }
     
     @Test
     public void newCourseTest() {
+    		controller.setTeacher(teachers.get(0).getName());
         controller.setActive(true);
         controller.newCourse();
         verify(daoCourseMock).insert(any(Course.class));
